@@ -52,15 +52,55 @@ export default function Home() {
 
   if (!session) {
     return (
-      <div className="container" style={{textAlign: 'center', padding: '4rem 1rem'}}>
-        <h1 className="title" style={{fontSize: '3rem', marginBottom: '2rem', color: '#a855f7', animation: 'pulse 2s infinite'}}>Gmail Classifier</h1>
-        <p style={{fontSize: '1.125rem', maxWidth: '600px', margin: '0 auto 2rem'}}>
-          Automatically fetch your latest emails and classify them into Important, Promotions, Social, Marketing, Spam, or General.
+      <div
+        className="container"
+        style={{ textAlign: "center", padding: "4rem 1rem" }}
+      >
+        <h1
+          className="title"
+          style={{
+            fontSize: "3rem",
+            marginBottom: "2rem",
+            color: "#a855f7ff",
+            animation: "pulse 2s infinite",
+          }}
+        >
+          Gmail Classifier
+        </h1>
+        <h2
+          className="title"
+          style={{
+            fontSize: "1.6rem",
+            marginBottom: "1rem",
+            color: "#7c38bcff",
+            animation: "pulse 1s infinite",
+          }}
+        >
+          Contact Developer to gain access{" "}
+          <a
+            href="https://kushal1929.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline", color: "#7c38bcff" }}
+          >
+            →
+          </a>
+        </h2>
+
+        <p
+          style={{
+            fontSize: "1.125rem",
+            maxWidth: "600px",
+            margin: "0 auto 2rem",
+          }}
+        >
+          Automatically fetch your latest emails and classify them into
+          Important, Promotions, Social, Marketing, Spam, or General.
         </p>
         <button
           onClick={() => signIn("google")}
           className="button"
-          style={{backgroundColor: 'white', color: '#7c3aed'}}
+          style={{ backgroundColor: "white", color: "#7c3aed" }}
         >
           Sign in with Google
         </button>
