@@ -21,25 +21,53 @@ export default async function handler(req: any, res: any) {
       messages: [
         {
           role: "system",
-          content:
-            "You are an assistant that classifies emails into the following categories:\n" +
-            "Important: Emails that are personal or work-related and require immediate attention.\n" +
-            "Promotions: Emails related to sales, discounts, and marketing campaigns.\n" +
-            "Social: Emails from social networks, friends, and family.\n" +
-            "Marketing: Emails related to marketing, newsletters, and notifications.\n" +
-            "Spam: Unwanted or unsolicited emails.\n" +
-            "General: If none of the above are matched, use General.",
+          content: `
+You are a helpful assistant that MUST classify the email strictly into ONE of these categories: Important, Promotions, Social, Marketing, Spam, General.
+
+Only respond with exactly one of these words — no explanations, no extra text.
+
+Categories:
+
+- Important: Personal or work emails that need immediate attention or urgent action.
+- Promotions: Emails about sales, discounts, or marketing offers.
+- Social: Emails from social networks, friends, family.
+- Marketing: Newsletters, notifications, marketing emails.
+- Spam: Unwanted or unsolicited emails.
+- General: Anything else.
+
+Examples:
+
+Subject: "Project deadline tomorrow" -> Important
+Subject: "50% off sale this weekend" -> Promotions
+Subject: "Friend request on SocialNet" -> Social
+Subject: "Monthly newsletter" -> Marketing
+Subject: "You've won a prize!" -> Spam
+
+Now classify this email ONLY with one word (Important, Promotions, Social, Marketing, Spam, General):
+          `.trim(),
         },
         {
           role: "user",
-          content: `Classify this email:\nSubject: ${subject}\nSnippet: ${snippet}`,
+          content: `Subject: ${subject}\nSnippet: ${snippet}`,
         },
       ],
-      max_tokens: 50,
+      max_tokens: 10,
+      temperature: 0,
     });
 
-    const label =
-      completion.choices?.[0]?.message?.content.trim() || "General";
+    const rawLabel = completion.choices?.[0]?.message?.content?.trim() || "General";
+
+    // Log raw response for debugging:
+    console.log("OpenAI raw label:", rawLabel);
+
+    // Normalize label capitalization
+    const label = rawLabel.charAt(0).toUpperCase() + rawLabel.slice(1).toLowerCase();
+
+    // Validate output label, fallback to General
+    const validLabels = ["Important", "Promotions", "Social", "Marketing", "Spam", "General"];
+    if (!validLabels.includes(label)) {
+      return res.status(200).json({ label: "General" });
+    }
 
     res.status(200).json({ label });
   } catch (err: any) {
