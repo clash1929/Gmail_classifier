@@ -1,0 +1,64 @@
+.email-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background-color: white;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.email-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: scale(1.05);
+}
+
+.email-subject {
+  font-weight: 600;
+  font-size: 1.125rem; /* ~18px */
+  margin-bottom: 0.25rem;
+}
+
+.email-snippet {
+  color: #4b5563; /* gray-600 */
+  margin-bottom: 0.5rem;
+}
+
+.email-label {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.875rem; /* 14px */
+}
+
+/* Label background and text colors */
+
+.label-important {
+  background-color: #fecaca; /* red-200 */
+  color: #991b1b; /* red-800 */
+}
+
+.label-promotions {
+  background-color: #bbf7d0; /* green-200 */
+  color: #14532d; /* green-800 */
+}
+
+.label-social {
+  background-color: #bfdbfe; /* blue-200 */
+  color: #1e40af; /* blue-800 */
+}
+
+.label-marketing {
+  background-color: #ddd6fe; /* purple-200 */
+  color: #5b21b6; /* purple-800 */
+}
+
+.label-spam {
+  background-color: #e5e7eb; /* gray-200 */
+  color: #1f2937; /* gray-800 */
+}
+
+.label-general {
+  background-color: #fef3c7; /* yellow-200 */
+  color: #78350f; /* yellow-800 */
+}

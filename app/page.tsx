@@ -52,14 +52,15 @@ export default function Home() {
 
   if (!session) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 text-white text-center px-6">
-        <h1 className="text-6xl font-bold mb-6 animate-pulse">Gmail Classifier</h1>
-        <p className="text-lg max-w-xl mb-8">
+      <div className="container" style={{textAlign: 'center', padding: '4rem 1rem'}}>
+        <h1 className="title" style={{fontSize: '3rem', marginBottom: '2rem', color: '#a855f7', animation: 'pulse 2s infinite'}}>Gmail Classifier</h1>
+        <p style={{fontSize: '1.125rem', maxWidth: '600px', margin: '0 auto 2rem'}}>
           Automatically fetch your latest emails and classify them into Important, Promotions, Social, Marketing, Spam, or General.
         </p>
         <button
           onClick={() => signIn("google")}
-          className="bg-white text-purple-700 font-bold px-8 py-3 rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transition transform"
+          className="button"
+          style={{backgroundColor: 'white', color: '#7c3aed'}}
         >
           Sign in with Google
         </button>
@@ -68,20 +69,17 @@ export default function Home() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-purple-700">Welcome, {session.user?.name}</h1>
-        <button
-          onClick={() => signOut()}
-          className="bg-red-500 text-white px-5 py-2 rounded-xl shadow hover:bg-red-600 hover:scale-105 transition"
-        >
+    <div className="container">
+      <header className="header">
+        <h1 className="title">Welcome, {session.user?.name}</h1>
+        <button onClick={() => signOut()} className="button">
           Sign Out
         </button>
-      </div>
+      </header>
 
-      <div className="bg-gradient-to-r from-purple-100 via-pink-50 to-yellow-50 p-6 rounded-xl mb-6 shadow-lg">
-        <h2 className="font-semibold text-xl mb-3">Email Classifications</h2>
-        <ul className="list-disc ml-6 text-gray-700 space-y-1">
+      <section className="info-box">
+        <h2>Email Classifications</h2>
+        <ul>
           <li><strong>Important:</strong> Personal or work emails requiring immediate attention</li>
           <li><strong>Promotions:</strong> Emails about sales, discounts, marketing</li>
           <li><strong>Social:</strong> Emails from friends, social networks</li>
@@ -89,13 +87,13 @@ export default function Home() {
           <li><strong>Spam:</strong> Unwanted or unsolicited emails</li>
           <li><strong>General:</strong> Emails not matched by above categories</li>
         </ul>
-      </div>
+      </section>
 
-      <div className="flex flex-wrap gap-4 mb-6">
+      <section className="actions">
         <button
           onClick={handleFetchEmails}
           disabled={loading}
-          className="bg-blue-500 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-600 hover:scale-105 transition"
+          className="button button-primary"
         >
           {loading ? "Fetching Emails..." : "Fetch Emails"}
         </button>
@@ -103,24 +101,22 @@ export default function Home() {
         {emails.length > 0 && (
           <button
             onClick={handleDownload}
-            className="bg-green-400 text-white px-6 py-2 rounded-xl shadow hover:bg-green-500 hover:scale-105 transition"
+            className="button button-secondary"
           >
             Download Classified Emails
           </button>
         )}
-      </div>
+      </section>
 
       {error && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 border border-red-300 rounded-xl">
-          {error}
-        </div>
+        <div className="error-box">{error}</div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <section className="email-grid">
         {emails.map((email) => (
           <EmailCard key={email.id} email={email} />
         ))}
-      </div>
+      </section>
     </div>
   );
 }
